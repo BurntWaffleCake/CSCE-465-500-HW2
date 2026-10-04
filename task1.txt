@@ -1,0 +1,30 @@
+
+======================================================================
+Part A: CTR bit-flip (malleability)
+======================================================================
+original plaintext : b'{"action":"READ","path":"notes.txt"}' (36 bytes)
+IV (public)        : f4ba73feaab8bb874f7322b33f2fa7a5
+original ciphertext: e9913c72a8fea83579740737247dbaf362ba9b29c81f8ae5feb4257e4e5a898ce2515a16
+
+relay changes b'READ' -> b'EXEC' at byte offset 11 (no key used)
+delta = old XOR new: 171d0407
+forged ciphertext  : e9913c72a8fea835797407203979bdf362ba9b29c81f8ae5feb4257e4e5a898ce2515a16
+
+XOR relation  C XOR C'  ==  P XOR P'
+  C  XOR C' : 0000000000000000000000171d0407000000000000000000000000000000000000000000
+  P  XOR P' : 0000000000000000000000171d0407000000000000000000000000000000000000000000
+  equal?      True
+
+Receiver gets the forged ciphertext:
+  [receiver] processed message #1: b'{"action":"EXEC","path":"notes.txt"}'
+  -> accepted with no error: the attacker changed the command.
+
+======================================================================
+Part B: replay
+======================================================================
+Sender sends one legitimate message; attacker records and resends it.
+  [receiver] processed message #1: b'{"action":"READ","path":"notes.txt"}'
+  [receiver] processed message #2: b'{"action":"READ","path":"notes.txt"}'
+
+messages processed from ONE send: 2
+  -> receiver cannot tell a replay from the original.

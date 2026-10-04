@@ -1,0 +1,14 @@
+loaded ffdhe3072 group (3072-bit p, g = 2)
+generating 3072-bit RSA keys (slow under emulation)...
+
+Valid handshake
+  session_id (gateway): 40691344bf3d875a
+  session_id (node)   : 40691344bf3d875a
+  transcript hashes match: True
+  four directional keys all distinct: True
+
+Attacks
+  [rejected] changed nonce: invalid RSA-PSS signature
+  [rejected] unexpected identity: unexpected peer identity
+  [rejected] reflected hello: unexpected peer identity
+  [rejected] malformed transcript: malformed transcript: declared length exceeds data

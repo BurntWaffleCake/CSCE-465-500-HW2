@@ -1,0 +1,4 @@
+record: 83 bytes = 15 header + 36 ct + 32 tag
+accepted: type=1 plaintext=b'{"action":"READ","path":"notes.txt"}'
+rejected replay: ReplayedRecord
+rejected bit-flipped ciphertext: AuthenticationFailure
